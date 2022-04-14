@@ -1,6 +1,5 @@
 #! /usr/bin/python3
 
-import sys
 from datetime import *
 import pandas as pd
 import math
@@ -33,9 +32,10 @@ while True:
     cond2 = tran_block['timestamp'].dt.hour == datetime.utcfromtimestamp(min1[0]).hour
     cond3 = tran_block['timestamp'].dt.minute == datetime.utcfromtimestamp(min1[0]).minute
     blocks = tran_block[cond1 & cond2 & cond3]
+    blocks = blocks.drop(blocks[blocks.gas_used == 0].index)
     new = math.trunc((sum(min2[2]) - sum(min1[2]) + sum(blocks['gas_used'])) / 21000)
     if new < 0:
-        new = 5
+        new = 0
     new_users.extend([new] * blocks.shape[0])
     blocks_total += blocks.shape[0]
     min1 = min2

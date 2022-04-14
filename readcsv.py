@@ -6,7 +6,7 @@ import pandas as pd
 import math
 
 file_blocks = input("Enter the name of the .csv file containing block count (default blocks.csv): ") or "blocks.csv"
-file_tran = input("Enter the name of the .csv file containing transaction count (default transactions.csv): ") or "transactions.csv"
+file_tran = input("Enter the name of the .csv file containing total gas used (default gas.csv): ") or "gas.csv"
 scale = input("Enter the scale for hardware restriction purposes (default 1): ") or "1"
 scale = int(scale)
 #percentage = input("Enter the percentage of requests to add in case of data containing only included transactions (default 25): ")
@@ -29,19 +29,20 @@ tran_total = tran_total[(tran_total['Date'] >= start) & (tran_total['Date'] <= e
 tran_total = tran_total['Value'].tolist()
 
 if len(blocks) != len(tran_total):
-    sys.exit("The count of blocks and transactions data does not match.")
-
+    sys.exit("The count of blocks and gas data does not match.")
+ 
 
 #? average incoming transaction requests per block
 tran = []
 for block_index, tran_total in enumerate(tran_total):
-    tvalue = math.trunc(tran_total / blocks[block_index] / scale)
+    tvalue = math.trunc(tran_total / 12000 / blocks[block_index] / scale)
     #tvalue = math.trunc(tvalue + (tvalue / 100 * percentage))
     tran.append(tvalue)
 
-blocks_scaled = []
-for bvalue in blocks:
-    blocks_scaled.append(math.trunc(bvalue / scale))
+blocks_scaled = blocks #TODO remove later
+# blocks_scaled = []
+# for bvalue in blocks:
+#     blocks_scaled.append(math.trunc(bvalue / scale))
 
 
 result = "demand_scenario = " + "[{} for i in range({})]".format(tran[0], blocks_scaled[0])
@@ -52,6 +53,6 @@ for index in range(1, len(blocks_scaled)):
 
 print("Blocks total: {}".format(blocks_total))
 print("Set the following constants: ")
-print("\"TARGET_GAS_USED\": {}".format(12500000 / scale))
-print("\"MAX_GAS_EIP1559\": {}".format(25000000 / scale))
+# print("\"TARGET_GAS_USED\": {}".format(12500000 / scale))
+# print("\"MAX_GAS_EIP1559\": {}".format(25000000 / scale))
 print(result)
