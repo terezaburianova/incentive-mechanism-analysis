@@ -5,8 +5,8 @@ import pandas as pd
 import math
 from ast import literal_eval
 
-file_blocks = input("Enter the name of the .csv file containing blocks (default blocks-day.csv): ") or "blocks-day.csv"
-file_mempool = input("Enter the name of the .log file containing mempool statistics (default mempool-day.log): ") or "mempool-day.log"
+file_blocks = input("Enter the name of the .csv file containing blocks (default data/blocks-day.csv): ") or "../data/blocks-day.csv"
+file_mempool = input("Enter the name of the .log file containing mempool statistics (default data/mempool-day.log): ") or "../data/mempool-day.log"
 
 #? csv parsing
 tran_block = pd.read_csv(file_blocks)
@@ -15,15 +15,17 @@ f = open(file_mempool, "r")
 blocks_total = 0
 
 
-resfile = open("result.txt", "w") 
+resfile = open("../results/demand-scenario.txt", "w") 
 
 
 min1 = f.readline() # read the first line
 min1 = min1[:-2]
 min1 = literal_eval(min1)
 new_users = []
+pool = []
 while True:
     min2 = f.readline()
+    pool.append(math.trunc(sum(min1[2])/21000))
     if not min2:
         break
     min2 = min2[:-2]
@@ -40,7 +42,8 @@ while True:
     blocks_total += blocks.shape[0]
     min1 = min2
 
-resfile.write(str(new_users))
+resfile.write("demand_scenario = {}".format(str(new_users)))
+resfile.write("real_demand_scenario = {}".format(str(pool)))
 resfile.close()
 f.close()
 
