@@ -13,7 +13,9 @@ file_blocks = input("Enter the name of the .csv file containing blocks (default 
 
 #? csv parsing - blocks list
 blocks_csv = pd.read_csv(file_blocks)
+blocks_csv = blocks_csv[blocks_csv.gas_used != 0]
 blocks_nums = blocks_csv['number'].tolist()
+print(len(blocks_nums))
 
 #? csv parsing - receipts
 receipts = pd.read_csv(file_receipts)
@@ -26,12 +28,12 @@ for blocknum in blocks_nums:
     all_fees = []
     for index, row in current.iterrows():
         cfee = math.trunc(row['effective_gas_price'] * (10 ** (-9)))
-        if (cfee != 0):
-            all_fees.append(cfee)
+        all_fees.append(cfee)
     if (len(all_fees) > 0):
         resultmean.append(round(statistics.mean(all_fees)))
         resultmedian.append(round(statistics.median(all_fees)))
-resfile.write("mean = {}\n\n".format(str(resultmean)))
-resfile.write("median = {}".format(str(resultmedian)))
+resfile.write(str(resultmean))
+print(len(resultmean))
+# resfile.write(str(resultmedian))
 resfile.close()
 

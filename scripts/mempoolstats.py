@@ -22,10 +22,8 @@ min1 = f.readline() # read the first line
 min1 = min1[:-2]
 min1 = literal_eval(min1)
 new_users = []
-pool = []
 while True:
     min2 = f.readline()
-    pool.append(math.trunc(sum(min1[2])/21000))
     if not min2:
         break
     min2 = min2[:-2]
@@ -42,8 +40,7 @@ while True:
     blocks_total += blocks.shape[0]
     min1 = min2
 
-resfile.write("demand_scenario = {}".format(str(new_users)))
-resfile.write("real_demand_scenario = {}".format(str(pool)))
+resfile.write(str(new_users))
 resfile.close()
 f.close()
 
