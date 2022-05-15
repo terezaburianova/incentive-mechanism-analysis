@@ -1,7 +1,6 @@
-data
 final
 oldscripts
-results
 prikazy.txt
 *.code-workspace
 abm1559/__pycache__
+data
