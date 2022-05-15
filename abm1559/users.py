@@ -2,7 +2,10 @@ from typing import Dict
 
 import pandas as pd
 
-from abm1559.config import rng
+from abm1559.config import (
+    rng,
+    constants
+)
 
 from abm1559.utils import (
     get_basefee_bounds,
@@ -145,7 +148,7 @@ class User1559(AffineUser):
     # Fixed gas_premium
 
     def expected_time(self, env):
-        return 5
+        return constants["EXPECTED_INCL"]
 
     def decide_parameters(self, env):
         gas_premium = 1 * (10 ** 9)

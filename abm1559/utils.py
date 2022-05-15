@@ -2,21 +2,23 @@ import numpy as np
 
 constants = {
     "BASEFEE_MAX_CHANGE_DENOMINATOR": 8,
-    "TARGET_GAS_USED": 12500000,
-    "MAX_GAS_EIP1559": 25000000,
+    "TARGET_GAS_USED": 15000000,
+    "MAX_GAS_EIP1559": 30000000,
     "EIP1559_DECAY_RANGE": 800000, #
     "EIP1559_GAS_INCREMENT_AMOUNT": 10, #
     "INITIAL_BASEFEE": 1 * (10 ** 9),
     "PER_TX_GASLIMIT": 8000000, #
     "SIMPLE_TRANSACTION_GAS": 21000,
+    "EXPECTED_INCL": 5
 }
 
-def set_constants(denominator=8, target_gas=12500000, max_gas=25000000, initial=1 * (10 ** 9), gas=21000):
+def set_constants(denominator=8, target_gas=15000000, max_gas=30000000, initial=1 * (10 ** 9), gas=21000, included=5):
     constants["BASEFEE_MAX_CHANGE_DENOMINATOR"] = denominator
     constants["TARGET_GAS_USED"] = target_gas
     constants["MAX_GAS_EIP1559"] = max_gas
     constants["INITIAL_BASEFEE"] = initial
     constants["SIMPLE_TRANSACTION_GAS"] = gas
+    constants["EXPECTED_INCL"] = included
 
 
 def get_basefee_bounds(basefee, blocks):
