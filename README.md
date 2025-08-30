@@ -1,1 +1,1 @@
-# BP
+This is the implementation of the Bachelor's thesis **Modeling and Simulation of Incentive Mechanisms in Ethereum**, written at the Brno University of Technology, Faculty of Information Technology in 2022, authored by Tereza Burianová and supervised by Ing. Martin Perešíni.
